@@ -28,16 +28,16 @@
     @file basic_test.cpp
     @brief Test the consistency of the mesh data structure
 
-    @author Alessio Fumagalli <alessio.fumagalli@mail.polimi.it>
-    @contributor
+    @author Alessio Fumagalli <alessio.fumagalli@polimi.it>
+    @contributor Davide Baroli <davide.baroli@polimi.it>
     @maintainer
 
     @date 2012-09-14
 
     Colour a mesh with two different colours, count the number
     of elements equal of one of the two.
-
- */
+   1D Mesh Structured
+*/
 
 // ===================================================
 //! Includes
@@ -51,19 +51,23 @@
 #include <Epetra_SerialComm.h>
 #endif
 
-
-#include <lifev/core/mesh/RegionMesh2DStructured.hpp>
+#include <lifev/core/mesh/RegionMesh1DStructured.hpp>
 #include <lifev/core/mesh/MeshUtility.hpp>
+#include <lifev/core/mesh/MeshData.hpp>
 
+#include <lifev/core/array/VectorSmall.hpp>
 #ifdef HAVE_HDF5
 #include <lifev/core/filter/ExporterHDF5.hpp>
 #else
 #include <lifev/core/filter/ExporterEmpty.hpp>
 #endif
 
+//#define DIM dataFile("mesh/Dimension",1);
+
+
 using namespace LifeV;
 
-UInt colour_fun ( const Vector3D& barycentre )
+UInt colour_fun ( const VectorSmall<3>& barycentre )
 {
     if ( barycentre[0] < 0.5 && barycentre[1] < 0.5 )
     {
@@ -72,29 +76,56 @@ UInt colour_fun ( const Vector3D& barycentre )
     return 3;
 }
 
+
+
+
+
 int main (int argc, char* argv[])
 {
+// Read From dataFile
+   GetPot command_line (argc, argv);
+    const std::string data_file_name =
+    command_line.follow ("data", 2, "-f", "--file");
+    GetPot dataFile (data_file_name);
+
+   const std::string discretization_section = "mesh";
+
+
+
 #ifdef HAVE_MPI
     MPI_Init (&argc, &argv);
-    boost::shared_ptr<Epetra_Comm> comm ( new Epetra_MpiComm ( MPI_COMM_WORLD ) );
+    boost::shared_ptr<Epetra_Comm> Comm ( new Epetra_MpiComm ( MPI_COMM_WORLD ) );
 #else
-    boost::shared_ptr<Epetra_Comm> comm ( new Epetra_SerialComm );
+    boost::shared_ptr<Epetra_Comm> Comm ( new Epetra_SerialComm );
 #endif
 
-    typedef RegionMesh<LinearTriangle> mesh_Type;
-    typedef boost::shared_ptr< mesh_Type > meshPtr_Type;
-
     // Create the mesh.
-    meshPtr_Type mesh ( new mesh_Type ( comm ) );
+    MeshData meshData (dataFile, (discretization_section).c_str() );
 
-    // Fill the mesh with a structured mesh.
-    regularMesh2D ( *mesh, 0, 8, 11 );
+ // set the Dimension.
+
+    typedef RegionMesh<LinearLine> mesh_Type;
+    typedef boost::shared_ptr<mesh_Type> meshPtr_Type;
+
+    meshPtr_Type fullMeshPtr (new mesh_Type(Comm) );
+   // Select if the mesh is structured or not
+   {
+      regularMesh1D (*fullMeshPtr, 0,
+                   dataFile ( "mesh/nx", 20 ),
+                   dataFile ( "mesh/verbose", false ),
+                   dataFile ( "mesh/lx", 1. ));
+
+   }
+
+
+
+
 
     // Colour the mesh according to a function.
-    MeshUtility::assignRegionMarkerID ( *mesh, colour_fun );
+    MeshUtility::assignRegionMarkerID ( *fullMeshPtr, colour_fun );
 
     // Count the number of elements with colour 2
-    const UInt colourElements = mesh->elementList().countElementsWithMarkerID ( 2, std::equal_to<markerID_Type>() );
+    const UInt colourElements = fullMeshPtr->elementList().countElementsWithMarkerID ( 2, std::equal_to<markerID_Type>() );
 
     // Number of elements with colour 2
     const UInt exactNumber = 44;
@@ -103,20 +134,28 @@ int main (int argc, char* argv[])
         // Needed to correctly destroy the exporterHDF5
 
         // Set the exporter for the mesh region.
-#ifdef HAVE_HDF5
-        ExporterHDF5< mesh_Type > exporter;
-#else
-        ExporterEmpty< mesh_Type > exporter;
-#endif
+    std::string nameoutput;
 
+    nameoutput="test_line";
+
+
+#ifdef HAVE_HDF5
+        boost::shared_ptr<ExporterHDF5< mesh_Type> > exporter;
+        exporter.reset(new ExporterHDF5<mesh_Type>( dataFile,nameoutput));
+
+#else
+       boost::shared_ptr<ExporterEmpty< mesh_Type> > exporter;
+        exporter.reset(new ExporterEmpty<mesh_Type>( dataFile,nameoutput));
+#endif
+        exporter->setPostDir("./");
         // Set the mesh.
-        exporter.setMeshProcId ( mesh, comm->MyPID() );
+        exporter->setMeshProcId ( fullMeshPtr, Comm->MyPID() );
 
         // Export the region marker ID.
-        exporter.exportRegionMarkerID ( mesh, comm );
+        exporter->exportRegionMarkerID ( fullMeshPtr, Comm );
 
         // Do the export.
-        exporter.postProcess ( 0 );
+        exporter->postProcess ( 0 );
 
     } // Needed to correctly destroy the exporterHDF5
 

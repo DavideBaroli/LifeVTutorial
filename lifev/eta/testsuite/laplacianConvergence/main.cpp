@@ -89,7 +89,6 @@ using namespace LifeV;
 const Real pi = 3.141592653589793;
 
 // Coefficients
-Real beta ( 1.0 );
 Real alpha ( 1.0 );
 Real nu ( 1.0 );
 UInt wall ( 30 );
@@ -108,39 +107,21 @@ Real laplacianExact ( const Real& /*t*/, const Real& x , const Real& y, const Re
 
 Real gRobinRhs ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    MatrixSmall<3, 3> hessian;
-
-    hessian[0][0] = - pi * pi * std::sin ( pi * y ) * std::cos ( pi * x ) * std::exp ( z );
-
-    hessian[0][1] = - pi * pi * std::sin (pi * x ) * std::cos (pi * y) * std::exp ( z );
-    hessian[1][0] = hessian[0][1];
-
-    hessian[0][2] = - pi * std::sin ( pi * y ) * std::sin ( pi * x ) * std::exp ( z );
-    hessian[2][0] = hessian[0][2];
-
-    hessian[1][1] = - pi * pi * std::sin ( pi * y ) * std::cos ( pi * x ) * std::exp ( z );
-    hessian[2][2] =  std::sin ( pi * y ) * cos ( pi * x ) * exp ( z );
-
-    hessian[1][2] =  pi * std::cos ( pi * y ) * std::cos ( pi * x ) * std::exp ( z );
-    hessian[2][1] =  hessian[1][2];
-
     VectorSmall<3> gradient;
     gradient[0] = - pi * std::sin ( pi * y ) * std::sin ( pi * x ) * std::exp ( z );
     gradient[1] = pi * std::cos ( pi * y ) * std::cos ( pi * x ) * std::exp ( z );
     gradient[2] = std::sin ( pi * y ) * std::cos ( pi * x ) * std::exp ( z );
 
     VectorSmall<3> normal;
-
-    Real traceHessian = hessian[0][0] + hessian[1][1] + hessian[2][2];
-
     normal[0] = 0;
     normal[1] = 0;
     normal[2] = 1;
 
     normal.normalize();
 
-    return ( nu * gradient.dot ( normal ) + alpha * uExact ( 0, x, y, z, 0 )
-             - beta * ( traceHessian - ( hessian * normal ).dot ( normal ) ) );
+
+
+    return ( nu * gradient.dot ( normal ) + alpha * uExact ( 0, x, y, z, 0 ) );
 }
 
 /* LaplacianRhs */
@@ -367,9 +348,6 @@ int main ( int argc, char** argv )
 
                     value ( alpha ) * phi_j * phi_i
 
-                    + value ( beta ) * dot ( ( grad (phi_j) - dot ( grad (phi_j) , Nface ) * Nface ) ,
-                                             ( grad (phi_i) - dot ( grad (phi_i) , Nface ) * Nface ) )
-
                   )
                 >> *systemMatrix;
     }
@@ -480,11 +458,6 @@ int main ( int argc, char** argv )
     Real errorH1SquaredLocal ( 0.0 );
     Real errorL2Squared ( 0.0 );
     Real errorH1Squared ( 0.0 );
-    Real errorH1BoundarySquared ( 0.0 );
-
-    vector_Type errorH1BoundaryVector ( ETuFESpace->map(), Repeated );
-    vector_Type errorH1BoundaryVectorUnique ( ETuFESpace->map() );
-
     boost::shared_ptr<uExactFunctor> uExactFct ( new uExactFunctor );
     boost::shared_ptr<gradExactFunctor> gradExactFct ( new gradExactFunctor );
 
@@ -512,34 +485,11 @@ int main ( int argc, char** argv )
         )
                 >> errorL2SquaredLocal;
 
-        integrate ( boundary (ETuFESpace->mesh(), wall),
-                    myBDQR,
-
-                    ETuFESpace,
-
-                    dot ( ( eval ( gradExactFct, X ) - dot ( eval ( gradExactFct, X ) , Nface ) * Nface )
-                          -  ( grad ( ETuFESpace , *uSolution ) - dot ( grad ( ETuFESpace , *uSolution ) , Nface ) * Nface ) ,
-                          ( eval ( gradExactFct, X ) - dot ( eval ( gradExactFct, X ) , Nface ) * Nface )
-                          -  ( grad ( ETuFESpace , *uSolution ) - dot ( grad ( ETuFESpace , *uSolution ) , Nface ) * Nface )
-                        ) * phi_i  +
-                    ( eval ( uExactFct, X ) - value ( ETuFESpace , *uSolution ) )
-                    * (  eval ( uExactFct, X ) - value ( ETuFESpace , *uSolution ) ) * phi_i
-
-                  )
-
-                >> errorH1BoundaryVector;
-
     }
 
     Comm->Barrier();
     Comm->SumAll (&errorH1SquaredLocal, &errorH1Squared, 1);
     Comm->SumAll (&errorL2SquaredLocal, &errorL2Squared, 1);
-
-    vector_Type oneVector ( ETuFESpace->map(), Unique );
-    errorH1BoundaryVectorUnique = errorH1BoundaryVector;
-    oneVector *= 0;
-    oneVector += 1;
-    errorH1BoundarySquared = errorH1BoundaryVectorUnique.dot ( oneVector );
 
     if (verbose)
     {
@@ -547,18 +497,16 @@ int main ( int argc, char** argv )
 
         std::cout << " H1 error norm " <<  sqrt ( errorH1Squared ) << std::endl;
 
-        std::cout << " H1 Gamma error norm " << std::sqrt ( errorH1BoundarySquared ) << std::endl;
-    }
+   }
 
     exporter.closeFile();
 
     Real tolerance (1e-5);
     bool success ( false );
 
-    if ( (  abs ( sqrt (errorL2Squared) - 0.0768669 ) < tolerance )
-            && (  abs ( sqrt (errorH1Squared) - 1.76249  ) < tolerance )
-            && ( abs ( sqrt (errorH1BoundarySquared) - 2.35064 ) < tolerance )
-       )
+    if ( (  abs ( sqrt (errorL2Squared) - 0.0768093 ) < tolerance )
+            && (  abs ( sqrt (errorH1Squared) - 1.75986  ) < tolerance )
+      )
     {
         success = true ;
     }

@@ -863,7 +863,7 @@ if (verbose)
 
     // Start from zero initial condition and ramp up
     *usolution*=0.;
-    *uprevSolutionTimeDerivative*=0.;
+//    *uprevSolutionTimeDerivative*=0.;
 //    *uprevSolution*=0.;
 //    *uprevRhsUnique*=0.;
     bdf.setInitialCondition ( *usolution );

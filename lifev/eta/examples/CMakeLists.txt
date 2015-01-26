@@ -8,4 +8,5 @@ ADD_SUBDIRECTORIES(
   laplacianConvergence
   diffusionReaction
  timedependentDiffusionReaction
-  )
+ DarcyMixedFormulation
+)

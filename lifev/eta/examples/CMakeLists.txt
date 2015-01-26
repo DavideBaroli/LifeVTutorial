@@ -7,4 +7,5 @@ ADD_SUBDIRECTORIES(
   stokes_repeated_mesh
   laplacianConvergence
   diffusionReaction
-)
+ timedependentDiffusionReaction
+  )

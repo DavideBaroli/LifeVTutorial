@@ -176,47 +176,47 @@ using namespace LifeV;
 
 Real scalardiffusion11 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 2; //  std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return 2; //  std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
 }
 
 Real scalardiffusion12 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 
 Real scalardiffusion13 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion21   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion22   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
 }
 Real scalardiffusion23   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 
 Real scalardiffusion31   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion32   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0 ;
+    return 0.0 ;
 }
 Real scalardiffusion33   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z );
+    return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z );
 }
 // Source Rhs
 Real scalarRhs ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ;
 }
 
 
@@ -224,26 +224,26 @@ Real scalarRhs ( const Real& /*t*/, const Real& x , const Real& y, const Real& z
 // Component Rhs
 Real scalarRhs0 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; //  x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; //  x;
 }
 // Component Rhs
 Real scalarRhs1 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; // x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; // x;
 
 }
 
 // Component Rhs
 Real scalarRhs2 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; // x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; // x;
 }
 
 // Boundary Conditions
 
 Real dirichlet ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return  x;
+    return  x;
 }
 
 
@@ -251,15 +251,15 @@ Real neumann1 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z 
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalz;
     normalz[0] = 0;
     normalz[1] = 0;
     normalz[2] = 1;
-return gradient.dot(normalz);
+    return gradient.dot (normalz);
 }
 
 
@@ -267,41 +267,41 @@ Real neumann2 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z 
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalx;
     normalx[0] = 1;
     normalx[1] = 0;
     normalx[2] = 0;
-return -1.*gradient.dot(normalx);
+    return -1.*gradient.dot (normalx);
 }
 
 class MatrixdiffusionFunctor
 {
 public:
-    typedef MatrixSmall<3,3>  return_Type;
+    typedef MatrixSmall<3, 3>  return_Type;
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-         MatrixSmall<3,3> Perm;
-         Perm[0][0]= scalardiffusion11 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[0][1]= scalardiffusion12 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[0][2]= scalardiffusion13 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][0]= scalardiffusion21 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][1]= scalardiffusion22 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][2]= scalardiffusion23 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][0]= scalardiffusion31 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][1]= scalardiffusion32 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][2]= scalardiffusion33 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        MatrixSmall<3, 3> Perm;
+        Perm[0][0] = scalardiffusion11 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[0][1] = scalardiffusion12 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[0][2] = scalardiffusion13 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][0] = scalardiffusion21 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][1] = scalardiffusion22 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][2] = scalardiffusion23 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][0] = scalardiffusion31 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][1] = scalardiffusion32 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][2] = scalardiffusion33 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
 
-       return Perm;
-   }
+        return Perm;
+    }
 
     MatrixdiffusionFunctor() {}
     MatrixdiffusionFunctor (const MatrixdiffusionFunctor&) {}
-     ~MatrixdiffusionFunctor() {}
+    ~MatrixdiffusionFunctor() {}
 };
 
 
@@ -312,7 +312,7 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-        return scalarRhs( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return scalarRhs ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
     }
 
     rhsScalarFunctor() {}
@@ -331,12 +331,12 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-       return_Type RhsNeumannVector;
+        return_Type RhsNeumannVector;
 
-       RhsNeumannVector[0]=0.  ;
-       RhsNeumannVector[1]=0.  ;
-       RhsNeumannVector[2]=neumann1( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-       return RhsNeumannVector;
+        RhsNeumannVector[0] = 0.  ;
+        RhsNeumannVector[1] = 0.  ;
+        RhsNeumannVector[2] = neumann1 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        return RhsNeumannVector;
     }
 
     Neumann1VectorialFunctor() {}
@@ -352,11 +352,11 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-       return_Type RhsNeumannVector;
-       RhsNeumannVector[0]=neumann2( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-        RhsNeumannVector[1]=0.  ;
-       RhsNeumannVector[2]=0.  ;
-      return RhsNeumannVector;
+        return_Type RhsNeumannVector;
+        RhsNeumannVector[0] = neumann2 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        RhsNeumannVector[1] = 0.  ;
+        RhsNeumannVector[2] = 0.  ;
+        return RhsNeumannVector;
     }
 
     Neumann2VectorialFunctor() {}
@@ -439,11 +439,11 @@ int main ( int argc, char** argv )
     // a flag to see who's the leader for output purposes
     bool verbose = (Comm->MyPID() == 0);
 
-        LifeChronoManager<> chronoMgr ( Comm );
+    LifeChronoManager<> chronoMgr ( Comm );
 
-        LifeChrono initTime;
-        chronoMgr.add ( "Initialization Time", &initTime );
-        initTime.start();
+    LifeChrono initTime;
+    chronoMgr.add ( "Initialization Time", &initTime );
+    initTime.start();
 
     // Open and read the data file
     GetPot command_line (argc, argv);
@@ -451,100 +451,100 @@ int main ( int argc, char** argv )
     //GetPot dataFile( data_file_name );
     GetPot dataFile ( "data" );
 
-     initTime.stop();
+    initTime.stop();
 
-        // Build and partition the mesh
+    // Build and partition the mesh
 
-        LifeChrono meshTime;
-        chronoMgr.add ( "Mesh reading/creation Time", &initTime );
-        meshTime.start();
+    LifeChrono meshTime;
+    chronoMgr.add ( "Mesh reading/creation Time", &initTime );
+    meshTime.start();
 
-    const UInt Nelementsx=dataFile("mesh/numElementalonx "  ,10);
-    const UInt Nelementsy=dataFile("mesh/numElementalony "  ,10);
-    const UInt Nelementsz=dataFile("mesh/numElementalonz "  ,10);
-    const Real l_x =dataFile("mesh/lengthMeshx "  , 2.);
-    const Real l_y =dataFile("mesh/lengthMeshy "  , 2.);
-    const Real l_z =dataFile("mesh/lengthMeshz "  , 2.);
+    const UInt Nelementsx = dataFile ("mesh/numElementalonx "  , 10);
+    const UInt Nelementsy = dataFile ("mesh/numElementalony "  , 10);
+    const UInt Nelementsz = dataFile ("mesh/numElementalonz "  , 10);
+    const Real l_x = dataFile ("mesh/lengthMeshx "  , 2.);
+    const Real l_y = dataFile ("mesh/lengthMeshy "  , 2.);
+    const Real l_z = dataFile ("mesh/lengthMeshz "  , 2.);
 
-    const Real t_x =dataFile("mesh/startx "  , 2.);
-    const Real t_y =dataFile("mesh/starty "  , 2.);
-    const Real t_z =dataFile("mesh/startz "  , 2.);
+    const Real t_x = dataFile ("mesh/startx "  , 2.);
+    const Real t_y = dataFile ("mesh/starty "  , 2.);
+    const Real t_z = dataFile ("mesh/startz "  , 2.);
 
 
 
     boost::shared_ptr< mesh_Type > fullMeshPtr (new mesh_Type ( Comm ) );
 
     regularMesh3D ( *fullMeshPtr, 1, Nelementsx, Nelementsy, Nelementsz, false,
-                l_x ,   l_y,   l_z,
-                t_x ,   t_y,      t_z  );
+                    l_x ,   l_y,   l_z,
+                    t_x ,   t_y,      t_z  );
 
 
-       if ( verbose )
-        {
-            std::cout << " done ! " << std::endl;
-        }
-        if ( verbose )
-        {
-            std::cout << "mesh elements = " << fullMeshPtr->numElements() << "\n"
-                      << "mesh points   = " << fullMeshPtr->numPoints() << std::endl;
-        }
+    if ( verbose )
+    {
+        std::cout << " done ! " << std::endl;
+    }
+    if ( verbose )
+    {
+        std::cout << "mesh elements = " << fullMeshPtr->numElements() << "\n"
+                  << "mesh points   = " << fullMeshPtr->numPoints() << std::endl;
+    }
 
-        meshTime.stop();
+    meshTime.stop();
 
-        if ( verbose )
-        {
-            std::cout << " -- Partitioning the mesh ... " << std::flush;
-        }
+    if ( verbose )
+    {
+        std::cout << " -- Partitioning the mesh ... " << std::flush;
+    }
 
-        LifeChrono partTime;
-        chronoMgr.add ( "Partition Time", &partTime );
-        partTime.start();
-        boost::shared_ptr< mesh_Type > meshPtr;
+    LifeChrono partTime;
+    chronoMgr.add ( "Partition Time", &partTime );
+    partTime.start();
+    boost::shared_ptr< mesh_Type > meshPtr;
     {
         MeshPartitioner< mesh_Type >   meshPart (fullMeshPtr, Comm);
         meshPtr = meshPart.meshPartition();
     }
 
-   partTime.stop();
+    partTime.stop();
 
-        Int localMeshNum[ 2 ];
-        localMeshNum[ 0 ] = meshPtr->numElements();
-        localMeshNum[ 1 ] = meshPtr->numPoints();
-        Int maxMeshNum[ 2 ] = { 0, 0 };
-        Comm->MaxAll ( localMeshNum, maxMeshNum, 2 );
+    Int localMeshNum[ 2 ];
+    localMeshNum[ 0 ] = meshPtr->numElements();
+    localMeshNum[ 1 ] = meshPtr->numPoints();
+    Int maxMeshNum[ 2 ] = { 0, 0 };
+    Comm->MaxAll ( localMeshNum, maxMeshNum, 2 );
 
-        if ( verbose )
-        {
-            std::cout << "part mesh elements = " << maxMeshNum[ 0 ] << "\n"
-                      << "part mesh points   = " << maxMeshNum[ 1 ] << std::endl;
-        }
+    if ( verbose )
+    {
+        std::cout << "part mesh elements = " << maxMeshNum[ 0 ] << "\n"
+                  << "part mesh points   = " << maxMeshNum[ 1 ] << std::endl;
+    }
 
-        if ( verbose )
-        {
-            std::cout << " -- Freeing the global mesh ... " << std::flush;
-        }
+    if ( verbose )
+    {
+        std::cout << " -- Freeing the global mesh ... " << std::flush;
+    }
 
-        fullMeshPtr.reset();
+    fullMeshPtr.reset();
 #ifdef HAVE_LIFEV_DEBUG
-        ASSERT ( fullMeshPtr.use_count() == 0, "full mesh not properly freed." );
+    ASSERT ( fullMeshPtr.use_count() == 0, "full mesh not properly freed." );
 #endif
-        if ( verbose )
-        {
-            std::cout << " done ! " << std::endl;
-        }
+    if ( verbose )
+    {
+        std::cout << " done ! " << std::endl;
+    }
 
-        // Build the FESpaces
+    // Build the FESpaces
 
-        if ( verbose )
-        {
-            std::cout << " -- Building FESpaces ... " << std::flush;
-        }
-        LifeChrono feSpaceTime;
-        chronoMgr.add ( "FESpace creation Time", &feSpaceTime );
-        feSpaceTime.start();
+    if ( verbose )
+    {
+        std::cout << " -- Building FESpaces ... " << std::flush;
+    }
+    LifeChrono feSpaceTime;
+    chronoMgr.add ( "FESpace creation Time", &feSpaceTime );
+    feSpaceTime.start();
 
-        std::string uOrder ("P2");
-        std::string pOrder ("P1");
+    std::string uOrder ("P2");
+    std::string pOrder ("P1");
 
     boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 3, Comm) );
     boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > pFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, pOrder, 1, Comm) );
@@ -571,12 +571,12 @@ int main ( int argc, char** argv )
     boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 3 > > ETuFESpace ( new ETFESpace< mesh_Type, MapEpetra, 3, 3 > (meshPtr, & (uFESpace->refFE() ), Comm) );
     boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 1 > > ETpFESpace ( new ETFESpace< mesh_Type, MapEpetra, 3, 1 > (meshPtr, & (pFESpace->refFE() ), Comm) );
 
-       feSpaceTime.stop();
+    feSpaceTime.stop();
 
-        if ( verbose )
-        {
-            std::cout << " done ! " << std::endl;
-        }
+    if ( verbose )
+    {
+        std::cout << " done ! " << std::endl;
+    }
     if (verbose)
     {
         std::cout << " Create vector " << std::endl;
@@ -593,7 +593,7 @@ int main ( int argc, char** argv )
     {
         std::cout << " Building the solvers " << std::endl;
     }
-//    LinearSolver linearSolver;
+    //    LinearSolver linearSolver;
     SolverAztecOO linearSolver;
     linearSolver.setCommunicator ( Comm );
     linearSolver.setDataFromGetPot (dataFile, "solver");
@@ -622,109 +622,109 @@ int main ( int argc, char** argv )
     exporter.addVariable ( ExporterData<mesh_Type>::VectorField, "velocity", uFESpace, DarcyExported, UInt (0) );
     exporter.addVariable ( ExporterData<mesh_Type>::ScalarField, "pressure", pFESpace, DarcyExported, PressureOffset);
 
-        if ( verbose )
-        {
-            std::cout << " -- Defining and filling the matrix ... " << std::flush;
-        }
+    if ( verbose )
+    {
+        std::cout << " -- Defining and filling the matrix ... " << std::flush;
+    }
 
-        LifeChrono matTime;
-        chronoMgr.add ( "Matrix creation Time", &matTime );
-        matTime.start();
+    LifeChrono matTime;
+    chronoMgr.add ( "Matrix creation Time", &matTime );
+    matTime.start();
 
-        boost::shared_ptr<matrix_block_type> DarcyMatrix (new matrix_block_type ( ETuFESpace->map() | ETpFESpace->map() ) );
-        *DarcyMatrix *= 0.0;
+    boost::shared_ptr<matrix_block_type> DarcyMatrix (new matrix_block_type ( ETuFESpace->map() | ETpFESpace->map() ) );
+    *DarcyMatrix *= 0.0;
 
-       matTime.stop();
-       QuadratureBoundary myBDQR (buildTetraBDQR (quadRuleTria4pt) );
-
-
-        boost::shared_ptr<MatrixdiffusionFunctor> MatrixdiffusionFct ( new MatrixdiffusionFunctor );
+    matTime.stop();
+    QuadratureBoundary myBDQR (buildTetraBDQR (quadRuleTria4pt) );
 
 
-        LifeChrono assemblyTime;
-        chronoMgr.add ( "Assembly Time", &assemblyTime );
-        assemblyTime.start();
-        {
-            using namespace ExpressionAssembly;
-
-            integrate ( elements (ETuFESpace->mesh() ),
-                        quadRuleTetra4pt,
-                        ETuFESpace,
-                        ETuFESpace,
-          dot( eval(MatrixdiffusionFct, X) *  phi_j , phi_i )
-                      )
-                    >> *DarcyMatrix->block (0, 0);
-
-            integrate ( elements (ETuFESpace->mesh() ),
-                        quadRuleTetra4pt,
-                        ETuFESpace,
-                        ETpFESpace,
-                       -1.* phi_j * div (phi_i)
-
-                      )
-                    >> *DarcyMatrix->block (0, 1);
-
-            integrate ( elements ( ETuFESpace->mesh() ),
-                        quadRuleTetra4pt,
-                        ETpFESpace,
-                        ETuFESpace,
-                         -1.* phi_i * div (phi_j)
-                      )
-                    >> *DarcyMatrix->block (1, 0);
-        }
-        DarcyMatrix->globalAssemble();
-        assemblyTime.stop();
-
-        if ( verbose )
-        {
-            std::cout << " done! " << std::endl;
-        }
-
- // Assembly RHS
-
-// Neumann BC on velocity
-   boost::shared_ptr<Neumann1VectorialFunctor> VectorialFctN1 ( new Neumann1VectorialFunctor );
-   boost::shared_ptr<Neumann2VectorialFunctor> VectorialFctN2 ( new Neumann2VectorialFunctor );
-// source 2nd term Rhs
-   boost::shared_ptr<rhsScalarFunctor> scalarFctRhs ( new rhsScalarFunctor );
+    boost::shared_ptr<MatrixdiffusionFunctor> MatrixdiffusionFct ( new MatrixdiffusionFunctor );
 
 
-   vector_block_type DarcyRhs ( ETuFESpace->map() | ETpFESpace->map() , Repeated );
-   DarcyRhs *= 0.0;
+    LifeChrono assemblyTime;
+    chronoMgr.add ( "Assembly Time", &assemblyTime );
+    assemblyTime.start();
+    {
+        using namespace ExpressionAssembly;
+
+        integrate ( elements (ETuFESpace->mesh() ),
+                    quadRuleTetra4pt,
+                    ETuFESpace,
+                    ETuFESpace,
+                    dot ( eval (MatrixdiffusionFct, X) *  phi_j , phi_i )
+                  )
+                >> *DarcyMatrix->block (0, 0);
+
+        integrate ( elements (ETuFESpace->mesh() ),
+                    quadRuleTetra4pt,
+                    ETuFESpace,
+                    ETpFESpace,
+                    -1.* phi_j * div (phi_i)
+
+                  )
+                >> *DarcyMatrix->block (0, 1);
+
+        integrate ( elements ( ETuFESpace->mesh() ),
+                    quadRuleTetra4pt,
+                    ETpFESpace,
+                    ETuFESpace,
+                    -1.* phi_i * div (phi_j)
+                  )
+                >> *DarcyMatrix->block (1, 0);
+    }
+    DarcyMatrix->globalAssemble();
+    assemblyTime.stop();
+
+    if ( verbose )
+    {
+        std::cout << " done! " << std::endl;
+    }
+
+    // Assembly RHS
+
+    // Neumann BC on velocity
+    boost::shared_ptr<Neumann1VectorialFunctor> VectorialFctN1 ( new Neumann1VectorialFunctor );
+    boost::shared_ptr<Neumann2VectorialFunctor> VectorialFctN2 ( new Neumann2VectorialFunctor );
+    // source 2nd term Rhs
+    boost::shared_ptr<rhsScalarFunctor> scalarFctRhs ( new rhsScalarFunctor );
+
+
+    vector_block_type DarcyRhs ( ETuFESpace->map() | ETpFESpace->map() , Repeated );
+    DarcyRhs *= 0.0;
 
     {
-            using namespace ExpressionAssembly;
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::TOPWALL), // Mesh
+        using namespace ExpressionAssembly;
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::TOPWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     dot(  eval ( VectorialFctN1 , X ) , phi_i)
+                    dot (  eval ( VectorialFctN1 , X ) , phi_i)
 
                   )
-                  >>*DarcyRhs.block(0);
+                >> *DarcyRhs.block (0);
 
-     integrate ( boundary (ETuFESpace->mesh(),BCFlags::FRONTWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::FRONTWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     dot(  eval ( VectorialFctN2 , X ) , phi_i)
+                    dot (  eval ( VectorialFctN2 , X ) , phi_i)
 
                   )
-                  >>*DarcyRhs.block(0);
+                >> *DarcyRhs.block (0);
 
-     integrate ( elements (ETpFESpace->mesh()), // Mesh
-                   pFESpace->qr(), // QR
+        integrate ( elements (ETpFESpace->mesh() ), // Mesh
+                    pFESpace->qr(), // QR
 
                     ETpFESpace,
 
                     eval ( scalarFctRhs, X ) * phi_i
 
                   )
-                 >>*DarcyRhs.block(1);
+                >> *DarcyRhs.block (1);
 
 
     }
@@ -733,55 +733,55 @@ int main ( int argc, char** argv )
     {
         std::cout << " -- Closing the matrix ... " << std::flush;
     }
-     DarcyRhs.globalAssemble();
-     vector_block_type DarcyRhsUnique ( DarcyRhs, Unique );
+    DarcyRhs.globalAssemble();
+    vector_block_type DarcyRhsUnique ( DarcyRhs, Unique );
 
 
-LifeChrono applyBC;
-        chronoMgr.add ( "Apply BC", &applyBC );
-        applyBC.start();
-   BCHandler bcHandler;
-   BCFunctionBase dirichletBCFct ( dirichlet );
+    LifeChrono applyBC;
+    chronoMgr.add ( "Apply BC", &applyBC );
+    applyBC.start();
+    BCHandler bcHandler;
+    BCFunctionBase dirichletBCFct ( dirichlet );
     bcHandler.addBC ("Left", BCFlags::LEFTWALL, Essential, Full , dirichletBCFct, 3);
     bcHandler.addBC ("Right", BCFlags::RIGHTWALL, Essential, Full , dirichletBCFct, 3);
     bcHandler.addBC ("Back", BCFlags::BACKWALL, Essential, Full , dirichletBCFct, 3);
     bcHandler.bcUpdate ( *meshPtr, uFESpace->feBd(), uFESpace->dof() );
 
 
-        applyBC.stop();
+    applyBC.stop();
 
 
-        if (verbose)
-        {
-            std::cout << "[Darcy] Solving the system " << std::endl;
-        }
-        LifeChrono solverTime;
-        chronoMgr.add ( "Solver Time", &solverTime );
-        solverTime.start();
+    if (verbose)
+    {
+        std::cout << "[Darcy] Solving the system " << std::endl;
+    }
+    LifeChrono solverTime;
+    chronoMgr.add ( "Solver Time", &solverTime );
+    solverTime.start();
 
-    MapEpetra fullMap(ETuFESpace->map()+ETpFESpace->map());
+    MapEpetra fullMap (ETuFESpace->map() + ETpFESpace->map() );
 
-        boost::shared_ptr<matrix_type> DarcyMatrixNoBlock (new matrix_type (
-        fullMap));
-        *DarcyMatrixNoBlock +=*DarcyMatrix;
-         DarcyMatrixNoBlock->globalAssemble();
+    boost::shared_ptr<matrix_type> DarcyMatrixNoBlock (new matrix_type (
+                                                           fullMap) );
+    *DarcyMatrixNoBlock += *DarcyMatrix;
+    DarcyMatrixNoBlock->globalAssemble();
 
-         bcManage (*DarcyMatrixNoBlock, DarcyRhsUnique,
+    bcManage (*DarcyMatrixNoBlock, DarcyRhsUnique,
               *uFESpace->mesh(), uFESpace->dof(),
               bcHandler, uFESpace->feBd(), 1.0, Real (0.0) );
 
 
-        linearSolver.setMatrix(*DarcyMatrixNoBlock);
-        linearSolver.solveSystem(DarcyRhsUnique,DarcySolution,DarcyMatrixNoBlock);
+    linearSolver.setMatrix (*DarcyMatrixNoBlock);
+    linearSolver.solveSystem (DarcyRhsUnique, DarcySolution, DarcyMatrixNoBlock);
 
-        solverTime.stop();
+    solverTime.stop();
 
     exporter.postProcess (1.0);
     exporter.closeFile();
 
-   bool success ( true );
+    bool success ( true );
 
-   if (!success)
+    if (!success)
     {
         if (verbose)
         {
@@ -796,8 +796,8 @@ LifeChrono applyBC;
         }
     }
 
-       // print out times
-        chronoMgr.print();
+    // print out times
+    chronoMgr.print();
 
 
 #ifdef HAVE_MPI

@@ -199,20 +199,20 @@ const Real pi = 3.141592653589793;
 // ---------------------------------------------------------------
 Real scalardiffusion ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return   std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return   std::sin (2 * pi / y ) * std::cos ( 2 * pi / x ) * std::exp ( z ) ;
 }
 
 // Source Rhs
 Real scalarRhs ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ;
 }
 
 
 
-Real scalarReaction( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
+Real scalarReaction ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return x*y-0.5*z ;
+    return x * y - 0.5 * z ;
 }
 
 // Boundary Conditions
@@ -220,22 +220,22 @@ return x*y-0.5*z ;
 
 Real dirichlet ( const Real& /* t*/, const Real& x , const Real& y, const Real& z , const ID& i)
 {
-return  x;
+    return  x;
 }
 
 Real neumann1 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalz;
     normalz[0] = 0;
     normalz[1] = 0;
     normalz[2] = 1;
-return gradient.dot(normalz);
+    return gradient.dot (normalz);
 }
 
 
@@ -243,21 +243,21 @@ Real neumann2 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z 
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalx;
     normalx[0] = 1;
     normalx[1] = 0;
     normalx[2] = 0;
-return -1.*gradient.dot(normalx);
+    return -1.*gradient.dot (normalx);
 }
 
 
 Real robin ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return  neumann1(0,x,y,z,0)-neumann2(0,x,y,z,0) ;
+    return  neumann1 (0, x, y, z, 0) - neumann2 (0, x, y, z, 0) ;
 }
 
 
@@ -274,8 +274,8 @@ public:
     }
 
     scalarDiffusionFunctor() {}
-   scalarDiffusionFunctor (const scalarDiffusionFunctor&) {}
-     ~scalarDiffusionFunctor() {}
+    scalarDiffusionFunctor (const scalarDiffusionFunctor&) {}
+    ~scalarDiffusionFunctor() {}
 };
 
 
@@ -287,7 +287,7 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-        return scalarRhs( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return scalarRhs ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
     }
 
     rhsScalarFunctor() {}
@@ -306,11 +306,11 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-        return scalarReaction( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return scalarReaction ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
     }
 
     scalarReactionFunctor() {}
-     scalarReactionFunctor (const  scalarReactionFunctor&) {}
+    scalarReactionFunctor (const  scalarReactionFunctor&) {}
     ~scalarReactionFunctor() {}
 };
 
@@ -324,8 +324,8 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-      return neumann1( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-     }
+        return neumann1 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+    }
 
     neumann1ScalarFunctor() {}
     neumann1ScalarFunctor (const neumann1ScalarFunctor&) {}
@@ -340,8 +340,8 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-      return neumann2( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-     }
+        return neumann2 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+    }
 
     neumann2ScalarFunctor() {}
     neumann2ScalarFunctor (const neumann2ScalarFunctor&) {}
@@ -455,17 +455,17 @@ int main ( int argc, char** argv )
     string data_file_name = command_line.follow ("data", 2, "-f", "--file");
     GetPot dataFile ( data_file_name );
 
-    if(verbose)
+    if (verbose)
     {
 
-        std::cout<<"-- Setting Time Discretization --"<<std::endl;
+        std::cout << "-- Setting Time Discretization --" << std::endl;
     }
-      const Real initialTime    = 0.0;
-        const Real endTime        = 100.0;
-        const Real timestep       = 1e-1;
-       // Order of BDF Method
+    const Real initialTime    = 0.0;
+    const Real endTime        = 100.0;
+    const Real timestep       = 1e-1;
+    // Order of BDF Method
 
-        UInt BDFOrder = 2;
+    UInt BDFOrder = 2;
 
     // ---------------------------------------------------------------
     // The next step is to build the mesh. We use here a structured
@@ -479,30 +479,30 @@ int main ( int argc, char** argv )
         std::cout << " -- Building and partitioning the mesh ... " << std::flush;
     }
 
-    const UInt Nelementsx=dataFile("mesh/numElementalonx "  ,10);
-    const UInt Nelementsy=dataFile("mesh/numElementalony "  ,10);
-    const UInt Nelementsz=dataFile("mesh/numElementalonz "  ,10);
-    const Real l_x =dataFile("mesh/lengthMeshx "  , 2.);
-    const Real l_y =dataFile("mesh/lengthMeshy "  , 2.);
-    const Real l_z =dataFile("mesh/lengthMeshz "  , 2.);
+    const UInt Nelementsx = dataFile ("mesh/numElementalonx "  , 10);
+    const UInt Nelementsy = dataFile ("mesh/numElementalony "  , 10);
+    const UInt Nelementsz = dataFile ("mesh/numElementalonz "  , 10);
+    const Real l_x = dataFile ("mesh/lengthMeshx "  , 2.);
+    const Real l_y = dataFile ("mesh/lengthMeshy "  , 2.);
+    const Real l_z = dataFile ("mesh/lengthMeshz "  , 2.);
 
-    const Real t_x =dataFile("mesh/startx "  , 2.);
-    const Real t_y =dataFile("mesh/starty "  , 2.);
-    const Real t_z =dataFile("mesh/startz "  , 2.);
+    const Real t_x = dataFile ("mesh/startx "  , 2.);
+    const Real t_y = dataFile ("mesh/starty "  , 2.);
+    const Real t_z = dataFile ("mesh/startz "  , 2.);
 
 
 
     boost::shared_ptr< mesh_Type > fullMeshPtr (new mesh_Type ( Comm ) );
 
     regularMesh3D ( *fullMeshPtr, 1, Nelementsx, Nelementsy, Nelementsz, false,
-                l_x ,   l_y,   l_z,
-                t_x ,   t_y,      t_z  );
+                    l_x ,   l_y,   l_z,
+                    t_x ,   t_y,      t_z  );
 
 
     if (verbose)
     {
         std::cout << "Mesh size  : " <<
-    MeshUtility::MeshStatistics::computeSize (*fullMeshPtr).maxH << std::endl;
+                  MeshUtility::MeshStatistics::computeSize (*fullMeshPtr).maxH << std::endl;
 
     }
 
@@ -510,12 +510,12 @@ int main ( int argc, char** argv )
     // Read from Mesh ( conforming with LifeV marker , see testsuite/mesh )
     // =============================================================
     // Load the mesh
- /*
-    MeshData dataMesh;
-    dataMesh.setup (dataFile, "mesh");
-    boost::shared_ptr < mesh_Type > fullMeshPtr (new mesh_Type);
-    readMesh (*fullMeshPtr, dataMesh);
- */
+    /*
+       MeshData dataMesh;
+       dataMesh.setup (dataFile, "mesh");
+       boost::shared_ptr < mesh_Type > fullMeshPtr (new mesh_Type);
+       readMesh (*fullMeshPtr, dataMesh);
+    */
 
 
     boost::shared_ptr< mesh_Type > meshPtr;
@@ -551,14 +551,14 @@ int main ( int argc, char** argv )
     }
 
 
-  std::string  uOrder=dataFile("fespace/order "  ,"P1");
+    std::string  uOrder = dataFile ("fespace/order "  , "P1");
 
-   boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 1, Comm) );
+    boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 1, Comm) );
 
     boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 1 > > ETuFESpace
-  ( new ETFESpace< mesh_Type, MapEpetra, 3, 1 > (meshPtr, &(uFESpace->refFE()), Comm) );
+    ( new ETFESpace< mesh_Type, MapEpetra, 3, 1 > (meshPtr, & (uFESpace->refFE() ), Comm) );
 
-if (verbose)
+    if (verbose)
     {
         std::cout << " done ! " << std::endl;
     }
@@ -587,7 +587,7 @@ if (verbose)
 
 
 
-// Initialize Matrix
+    // Initialize Matrix
     *BaseMatrix *= 0.0;
     *MassMatrix *= 0.0;
 
@@ -654,45 +654,45 @@ if (verbose)
         // ---------------------------------------------------------------
 
 
-integrate (  elements (ETuFESpace->mesh() ),
+        integrate (  elements (ETuFESpace->mesh() ),
                      quadRuleTetra4pt,
                      ETuFESpace,
                      ETuFESpace,
-    eval( scalarDiffusionFct, X) * dot ( grad (phi_j) , grad (phi_i) )
-    - eval( scalarReactionFct, X) *   phi_j * phi_i
+                     eval ( scalarDiffusionFct, X) * dot ( grad (phi_j) , grad (phi_i) )
+                     - eval ( scalarReactionFct, X) *   phi_j * phi_i
 
                   )
                 >> *BaseMatrix;
-integrate (  elements (ETuFESpace->mesh() ),
+        integrate (  elements (ETuFESpace->mesh() ),
                      quadRuleTetra4pt,
                      ETuFESpace,
                      ETuFESpace,
-      phi_j* phi_i)>>*MassMatrix;
+                     phi_j * phi_i) >> *MassMatrix;
 
-// - \int _\GammaN \grad u cdot n =- \int_GammaN gN v + \int_\GammaN  alpha u cdot v
+        // - \int _\GammaN \grad u cdot n =- \int_GammaN gN v + \int_\GammaN  alpha u cdot v
 
-// Assembly of LHS of Robin Boundary Condition
+        // Assembly of LHS of Robin Boundary Condition
 
-integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
+        integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
                      myBDQR,
                      ETuFESpace,
                      ETuFESpace,
-            value ( alpha ) * phi_j * phi_i
+                     value ( alpha ) * phi_j * phi_i
 
- )
+                  )
                 >> *BaseMatrix;
 
-   }
+    }
 
     if (verbose)
     {
         std::cout << " Assembling the rhs ... " << std::flush;
     }
-   boost::shared_ptr<rhsScalarFunctor> ScalarFctRhs ( new rhsScalarFunctor );
-   boost::shared_ptr<neumann1ScalarFunctor> ScalarFctN1 ( new neumann1ScalarFunctor );
-   boost::shared_ptr<neumann2ScalarFunctor> ScalarFctN2 ( new neumann2ScalarFunctor );
+    boost::shared_ptr<rhsScalarFunctor> ScalarFctRhs ( new rhsScalarFunctor );
+    boost::shared_ptr<neumann1ScalarFunctor> ScalarFctN1 ( new neumann1ScalarFunctor );
+    boost::shared_ptr<neumann2ScalarFunctor> ScalarFctN2 ( new neumann2ScalarFunctor );
 
-   boost::shared_ptr<robinFunctor> ScalarFctR ( new robinFunctor );
+    boost::shared_ptr<robinFunctor> ScalarFctR ( new robinFunctor );
 
 
 
@@ -719,57 +719,57 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     }
     if (verbose)
     {
-       std::cout<<"Assembly Stationary Rhs "<<std::endl;
+        std::cout << "Assembly Stationary Rhs " << std::endl;
     }
-   vector_Type uRhsBase ( ETuFESpace->map() , Repeated );
+    vector_Type uRhsBase ( ETuFESpace->map() , Repeated );
     uRhsBase *= 0.0;
 
     {
         using namespace ExpressionAssembly;
-        integrate ( elements (ETuFESpace->mesh()), // Mesh
+        integrate ( elements (ETuFESpace->mesh() ), // Mesh
 
 
-                   uFESpace->qr(), // QR
+                    uFESpace->qr(), // QR
 
                     ETuFESpace,
 
-                     eval ( ScalarFctRhs, X ) * phi_i
+                    eval ( ScalarFctRhs, X ) * phi_i
 
                   )
-                  >> uRhsBase;
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::TOPWALL), // Mesh
+                >> uRhsBase;
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::TOPWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( ScalarFctN1 , X ) * phi_i
+                    eval ( ScalarFctN1 , X ) * phi_i
 
                   )
-                  >>uRhsBase;
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::FRONTWALL), // Mesh
+                >> uRhsBase;
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::FRONTWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( ScalarFctN2 , X ) * phi_i
+                    eval ( ScalarFctN2 , X ) * phi_i
 
                   )
-                  >>uRhsBase;
+                >> uRhsBase;
 
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::BOTTOMWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( ScalarFctR , X ) * phi_i
+                    eval ( ScalarFctR , X ) * phi_i
 
                   )
-                  >>uRhsBase;
+                >> uRhsBase;
 
-   }
+    }
 
 
 
@@ -778,30 +778,30 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
         std::cout << " Setting Dirichlet boundary conditions ... " << std::flush;
     }
 
-   BCHandler bcHandler;
+    BCHandler bcHandler;
 
     BCFunctionBase dirichletBCFct ( dirichlet );
 
 
 
-//======================================================
-// Essential BC are identified by  coordinates x; y; z
-//=====================================================
+    //======================================================
+    // Essential BC are identified by  coordinates x; y; z
+    //=====================================================
 
 
     bcHandler.addBC ("Left", BCFlags::LEFTWALL, Essential, Full, dirichletBCFct, 1);
     bcHandler.addBC ("Right", BCFlags::RIGHTWALL, Essential, Full , dirichletBCFct, 1);
     bcHandler.addBC ("Back", BCFlags::BACKWALL, Essential, Full, dirichletBCFct, 1);
 
-// If we need to define Dirichlet BC not for all component but only for one select
-// component  ( the x- component)
-//  Example of Code:
-//   std::vector<LifeV::ID> xComp(1);
-//    xComp[0]=0;
-//    BCFunctionBase uZero ( zeroFunction );
- //   bcHandler.add ("Back", BCFlags::BACKWALL, Essential, Component, zeroFct, xComp);
+    // If we need to define Dirichlet BC not for all component but only for one select
+    // component  ( the x- component)
+    //  Example of Code:
+    //   std::vector<LifeV::ID> xComp(1);
+    //    xComp[0]=0;
+    //    BCFunctionBase uZero ( zeroFunction );
+    //   bcHandler.add ("Back", BCFlags::BACKWALL, Essential, Component, zeroFct, xComp);
 
-      bcHandler.bcUpdate ( *meshPtr, uFESpace->feBd(), uFESpace->dof() );
+    bcHandler.bcUpdate ( *meshPtr, uFESpace->feBd(), uFESpace->dof() );
 
 
     if (verbose)
@@ -810,22 +810,22 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     }
 
     vectorPtr_Type usolution ( new vector_Type ( ETuFESpace->map() , Unique) );
- //   vectorPtr_Type uprevSolution ( new vector_Type ( ETuFESpace->map() , Unique) );
- //   vectorPtr_Type uprevSolutionTimeDerivative ( new vector_Type ( ETuFESpace->map() , Unique) );
+    //   vectorPtr_Type uprevSolution ( new vector_Type ( ETuFESpace->map() , Unique) );
+    //   vectorPtr_Type uprevSolutionTimeDerivative ( new vector_Type ( ETuFESpace->map() , Unique) );
 
     vectorPtr_Type uRhsBaseUnique ( new vector_Type ( uRhsBase, Unique ) );
-     vectorPtr_Type uRhsUnique ( new vector_Type ( ETuFESpace->map(), Unique ) );
-//    vectorPtr_Type uprevRhsUnique ( new vector_Type ( ETuFESpace->map(), Unique ) );
+    vectorPtr_Type uRhsUnique ( new vector_Type ( ETuFESpace->map(), Unique ) );
+    //    vectorPtr_Type uprevRhsUnique ( new vector_Type ( ETuFESpace->map(), Unique ) );
 
 
-if (verbose)
+    if (verbose)
     {
         std::cout << "done" << std::endl;
     }
 
 
 
-   if ( verbose )
+    if ( verbose )
     {
         std::cout << "Setting up LinearSolver ... " << std::flush;
     }
@@ -837,10 +837,10 @@ if (verbose)
     precPtr.reset ( precRawPtr );
 
     Teuchos::RCP< Teuchos::ParameterList > solverList = Teuchos::rcp ( new Teuchos::ParameterList );
-    const std::string solverParam=dataFile("solver/listName", "SolverParamListBelos.xml");
+    const std::string solverParam = dataFile ("solver/listName", "SolverParamListBelos.xml");
 
 
-   solverList = Teuchos::getParametersFromXmlFile (solverParam );
+    solverList = Teuchos::getParametersFromXmlFile (solverParam );
 
     LinearSolver linearSolver;
     linearSolver.setCommunicator ( Comm );
@@ -862,48 +862,48 @@ if (verbose)
     Real currentTime = initialTime - timestep * BDFOrder;
 
     // Start from zero initial condition and ramp up
-    *usolution*=0.;
-//    *uprevSolutionTimeDerivative*=0.;
-//    *uprevSolution*=0.;
-//    *uprevRhsUnique*=0.;
+    *usolution *= 0.;
+    //    *uprevSolutionTimeDerivative*=0.;
+    //    *uprevSolution*=0.;
+    //    *uprevRhsUnique*=0.;
     bdf.setInitialCondition ( *usolution );
 
-  currentTime += timestep;
-   for ( ; currentTime <=  initialTime + timestep / 2.; currentTime += timestep)
-  {
-   *uRhsUnique *=0;
-   *usolution  *=0;
-
-   *uRhsUnique += *uRhsBaseUnique;
-
-    *SystemMatrix+=*BaseMatrix;
-
-
-    if (verbose)
+    currentTime += timestep;
+    for ( ; currentTime <=  initialTime + timestep / 2.; currentTime += timestep)
     {
-                std::cout << "Applying BC... " << std::flush;
-    }
+        *uRhsUnique *= 0;
+        *usolution  *= 0;
 
-    bcManage (*SystemMatrix, *uRhsUnique,
-              *uFESpace->mesh(), uFESpace->dof(),
-              bcHandler, uFESpace->feBd(), 1.0, Real (0.0) );
+        *uRhsUnique += *uRhsBaseUnique;
+
+        *SystemMatrix += *BaseMatrix;
+
+
+        if (verbose)
+        {
+            std::cout << "Applying BC... " << std::flush;
+        }
+
+        bcManage (*SystemMatrix, *uRhsUnique,
+                  *uFESpace->mesh(), uFESpace->dof(),
+                  bcHandler, uFESpace->feBd(), 1.0, Real (0.0) );
 
         SystemMatrix->globalAssemble();
-             if (verbose)
-            {
-                std::cout << "solving the system... " << std::endl;
-            }
-            *usolution *= 0;
+        if (verbose)
+        {
+            std::cout << "solving the system... " << std::endl;
+        }
+        *usolution *= 0;
 
-    linearSolver.setOperator ( SystemMatrix );
-    linearSolver.setRightHandSide ( uRhsUnique );
-    linearSolver.solve ( usolution );
+        linearSolver.setOperator ( SystemMatrix );
+        linearSolver.setRightHandSide ( uRhsUnique );
+        linearSolver.solve ( usolution );
 
         // Updating bdf
         bdf.shiftRight ( *usolution );
-  }
+    }
 
-   linearSolver.resetPreconditioner();
+    linearSolver.resetPreconditioner();
 
 
     if (verbose)
@@ -918,13 +918,13 @@ if (verbose)
     boost::shared_ptr<vector_Type> uExported ( new vector_Type (ETuFESpace->map(), exporter.mapType() ) );
     exporter.addVariable ( ExporterData<mesh_Type>::ScalarField, "u", uFESpace, usolution, UInt (0) );
 
-   if (verbose)
+    if (verbose)
     {
         std::cout << "Exporting solution at time t=" << initialTime << "... " << std::endl;
     }
     exporter.postProcess (initialTime);
 
-   // +-----------------------------------------------+
+    // +-----------------------------------------------+
     // |             Solving the problem               |
     // +-----------------------------------------------+
     if (verbose)
@@ -932,56 +932,56 @@ if (verbose)
         std::cout << std::endl << "[Solving the problem]" << std::endl;
     }
     int iter = 1;
-   for ( ; currentTime <= endTime + timestep / 2.; currentTime += timestep, iter++)
+    for ( ; currentTime <= endTime + timestep / 2.; currentTime += timestep, iter++)
     {
-       if (verbose)
+        if (verbose)
         {
             std::cout << std::endl << "[t = " << currentTime << " s.]" << std::endl;
         }
-       if (verbose)
+        if (verbose)
         {
             std::cout << "Updating the system... " << std::flush;
         }
         bdf.updateRHSContribution ( timestep );
 
-    *uRhsUnique=*MassMatrix *bdf.rhsContributionFirstDerivative();
-     SystemMatrix.reset (new matrix_Type ( ETuFESpace->map() ) );
-     double alphaTime = bdf.coefficientFirstDerivative ( 0 ) / timestep;
-     *SystemMatrix += *MassMatrix * alphaTime;
-     *SystemMatrix += *BaseMatrix;
+        *uRhsUnique = *MassMatrix * bdf.rhsContributionFirstDerivative();
+        SystemMatrix.reset (new matrix_Type ( ETuFESpace->map() ) );
+        double alphaTime = bdf.coefficientFirstDerivative ( 0 ) / timestep;
+        *SystemMatrix += *MassMatrix * alphaTime;
+        *SystemMatrix += *BaseMatrix;
 
-    bcManage (*SystemMatrix, *uRhsUnique,
-              *uFESpace->mesh(), uFESpace->dof(),
-              bcHandler, uFESpace->feBd(), 1.0, Real (0.0) );
+        bcManage (*SystemMatrix, *uRhsUnique,
+                  *uFESpace->mesh(), uFESpace->dof(),
+                  bcHandler, uFESpace->feBd(), 1.0, Real (0.0) );
 
         SystemMatrix->globalAssemble();
-             if (verbose)
-            {
-                std::cout << "solving the system... " << std::endl;
-            }
-            *usolution *= 0;
+        if (verbose)
+        {
+            std::cout << "solving the system... " << std::endl;
+        }
+        *usolution *= 0;
 
-    linearSolver.setOperator ( SystemMatrix );
-    linearSolver.setRightHandSide ( uRhsUnique );
-    linearSolver.solve ( usolution );
+        linearSolver.setOperator ( SystemMatrix );
+        linearSolver.setRightHandSide ( uRhsUnique );
+        linearSolver.solve ( usolution );
         // Updating the BDF scheme
         bdf.shiftRight ( *usolution );
 
         // Exporting the solution
         exporter.postProcess ( currentTime );
-  //      *uprevSolution               = *usolution;
-  //      *uprevRhsUnique              = *uRhsUnique;
+        //      *uprevSolution               = *usolution;
+        //      *uprevRhsUnique              = *uRhsUnique;
 
         MPI_Barrier (MPI_COMM_WORLD);
 
-   }
-// Close Exporter
+    }
+    // Close Exporter
     exporter.closeFile();
 
 
-   bool success ( true );
+    bool success ( true );
 
-   if (!success)
+    if (!success)
     {
         if (verbose)
         {

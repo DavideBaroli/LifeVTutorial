@@ -199,98 +199,98 @@ const Real pi = 3.141592653589793;
 
 Real scalardiffusion ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
 }
 
 Real scalardiffusion11 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 2; //  std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return 2; //  std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
 }
 
 Real scalardiffusion12 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 
 Real scalardiffusion13 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion21   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion22   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
+    return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z ) ;
 }
 Real scalardiffusion23   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 
 Real scalardiffusion31   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0;
+    return 0.0;
 }
 Real scalardiffusion32   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 0.0 ;
+    return 0.0 ;
 }
 Real scalardiffusion33   ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-  return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z );
+    return 1.; // std::sin (2* pi / y ) * std::cos ( 2*pi / x ) * std::exp ( z );
 }
 
 // Source Rhs
 Real scalarRhs ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ;
 }
 
 // Component Rhs
 Real scalarRhs0 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; //  x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; //  x;
 }
 // Component Rhs
 Real scalarRhs1 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; // x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; // x;
 
 }
 
 // Component Rhs
 Real scalarRhs2 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-    return  1* (std::sqrt( std::pow(x,2)+std::pow(y,2)+std::pow(z,2) )<1 ) ; // x;
+    return  1 * (std::sqrt ( std::pow (x, 2) + std::pow (y, 2) + std::pow (z, 2) ) < 1 ) ; // x;
 }
 
-Real scalarReaction( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
+Real scalarReaction ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return x*y-0.5*z ;
+    return x * y - 0.5 * z ;
 }
 
 // Boundary Conditions
 
 Real dirichlet ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return  x;
+    return  x;
 }
 
 Real neumann1 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalz;
     normalz[0] = 0;
     normalz[1] = 0;
     normalz[2] = 1;
-return gradient.dot(normalz);
+    return gradient.dot (normalz);
 }
 
 
@@ -298,21 +298,21 @@ Real neumann2 ( const Real& /*t*/, const Real& x , const Real& y, const Real& z 
 {
 
     VectorSmall<3> gradient;
-    gradient[0]= -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
-    gradient[1]=-1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
-    gradient[2]=-1. * ( 5. - 4. * z );
+    gradient[0] = -1. * ( 4. * x * y * y + 2. * x * x * y + 12. - 2. * x * x * x - 2. * y );
+    gradient[1] = -1. * ( 2. * y * x * x + 2. * x * y * y + 6. - 2. * y - x * x * x );
+    gradient[2] = -1. * ( 5. - 4. * z );
 
     VectorSmall<3> normalx;
     normalx[0] = 1;
     normalx[1] = 0;
     normalx[2] = 0;
-return -1.*gradient.dot(normalx);
+    return -1.*gradient.dot (normalx);
 }
 
 
 Real robin ( const Real& /*t*/, const Real& x , const Real& y, const Real& z , const ID& /*i*/)
 {
-return  neumann1(0,x,y,z,0)-neumann2(0,x,y,z,0) ;
+    return  neumann1 (0, x, y, z, 0) - neumann2 (0, x, y, z, 0) ;
 }
 
 
@@ -329,34 +329,34 @@ public:
     }
 
     scalardiffusionFunctor() {}
-   scalardiffusionFunctor (const scalardiffusionFunctor&) {}
-     ~scalardiffusionFunctor() {}
+    scalardiffusionFunctor (const scalardiffusionFunctor&) {}
+    ~scalardiffusionFunctor() {}
 };
 
 class MatrixdiffusionFunctor
 {
 public:
-    typedef MatrixSmall<3,3>  return_Type;
+    typedef MatrixSmall<3, 3>  return_Type;
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-         MatrixSmall<3,3> Perm;
-         Perm[0][0]= scalardiffusion11 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[0][1]= scalardiffusion12 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[0][2]= scalardiffusion13 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][0]= scalardiffusion21 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][1]= scalardiffusion22 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[1][2]= scalardiffusion23 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][0]= scalardiffusion31 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][1]= scalardiffusion32 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-         Perm[2][2]= scalardiffusion33 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        MatrixSmall<3, 3> Perm;
+        Perm[0][0] = scalardiffusion11 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[0][1] = scalardiffusion12 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[0][2] = scalardiffusion13 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][0] = scalardiffusion21 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][1] = scalardiffusion22 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[1][2] = scalardiffusion23 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][0] = scalardiffusion31 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][1] = scalardiffusion32 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        Perm[2][2] = scalardiffusion33 (0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
 
-       return Perm;
-   }
+        return Perm;
+    }
 
     MatrixdiffusionFunctor() {}
     MatrixdiffusionFunctor (const MatrixdiffusionFunctor&) {}
-     ~MatrixdiffusionFunctor() {}
+    ~MatrixdiffusionFunctor() {}
 };
 
 /* LaplacianRhs */
@@ -367,7 +367,7 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-        return scalarRhs( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return scalarRhs ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
     }
 
     rhsScalarFunctor() {}
@@ -384,12 +384,12 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-       return_Type RhsVector;
-       RhsVector[0]=  scalarRhs0( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
-       RhsVector[1]=  scalarRhs1( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
-       RhsVector[2]=  scalarRhs2( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return_Type RhsVector;
+        RhsVector[0] =  scalarRhs0 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        RhsVector[1] =  scalarRhs1 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        RhsVector[2] =  scalarRhs2 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
 
-       return RhsVector;
+        return RhsVector;
     }
 
     rhsVectorialFunctor() {}
@@ -406,12 +406,12 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-       return_Type RhsNeumannVector;
+        return_Type RhsNeumannVector;
 
-       RhsNeumannVector[0]=0.  ;
-       RhsNeumannVector[1]=0.  ;
-       RhsNeumannVector[2]=neumann1( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-       return RhsNeumannVector;
+        RhsNeumannVector[0] = 0.  ;
+        RhsNeumannVector[1] = 0.  ;
+        RhsNeumannVector[2] = neumann1 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        return RhsNeumannVector;
     }
 
     Neumann1VectorialFunctor() {}
@@ -427,11 +427,11 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-       return_Type RhsNeumannVector;
-       RhsNeumannVector[0]=neumann2( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-        RhsNeumannVector[1]=0.  ;
-       RhsNeumannVector[2]=0.  ;
-      return RhsNeumannVector;
+        return_Type RhsNeumannVector;
+        RhsNeumannVector[0] = neumann2 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+        RhsNeumannVector[1] = 0.  ;
+        RhsNeumannVector[2] = 0.  ;
+        return RhsNeumannVector;
     }
 
     Neumann2VectorialFunctor() {}
@@ -450,8 +450,8 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-      return neumann1( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-     }
+        return neumann1 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+    }
 
     Neumann1ScalarFunctor() {}
     Neumann1ScalarFunctor (const Neumann1ScalarFunctor&) {}
@@ -466,8 +466,8 @@ public:
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
 
-      return neumann2( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
-     }
+        return neumann2 ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  );
+    }
 
     Neumann2ScalarFunctor() {}
     Neumann2ScalarFunctor (const Neumann2ScalarFunctor&) {}
@@ -483,11 +483,11 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-        return scalarReaction( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        return scalarReaction ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
     }
 
     scalarReactionFunctor() {}
-     scalarReactionFunctor (const  scalarReactionFunctor&) {}
+    scalarReactionFunctor (const  scalarReactionFunctor&) {}
     ~scalarReactionFunctor() {}
 };
 
@@ -514,12 +514,12 @@ public:
 
     return_Type operator() ( const VectorSmall<3> spaceCoordinates )
     {
-    VectorSmall<3> robinVect;
-    robinVect[0]= robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
-    robinVect[1]= robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 1  ) ;
-    robinVect[2]= robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 2  ) ;
+        VectorSmall<3> robinVect;
+        robinVect[0] = robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 0  ) ;
+        robinVect[1] = robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 1  ) ;
+        robinVect[2] = robin ( 0, spaceCoordinates[0], spaceCoordinates[1], spaceCoordinates[2] , 2  ) ;
 
-    return robinVect;
+        return robinVect;
     }
 
     robinVectFunctor() {}
@@ -626,35 +626,35 @@ int main ( int argc, char** argv )
         std::cout << " -- Building and partitioning the mesh ... " << std::flush;
     }
 
-    const UInt Nelementsx=dataFile("mesh/numElementalonx "  ,10);
-    const UInt Nelementsy=dataFile("mesh/numElementalony "  ,10);
-    const UInt Nelementsz=dataFile("mesh/numElementalonz "  ,10);
-    const Real l_x =dataFile("mesh/lengthMeshx "  , 2.);
-    const Real l_y =dataFile("mesh/lengthMeshy "  , 2.);
-    const Real l_z =dataFile("mesh/lengthMeshz "  , 2.);
+    const UInt Nelementsx = dataFile ("mesh/numElementalonx "  , 10);
+    const UInt Nelementsy = dataFile ("mesh/numElementalony "  , 10);
+    const UInt Nelementsz = dataFile ("mesh/numElementalonz "  , 10);
+    const Real l_x = dataFile ("mesh/lengthMeshx "  , 2.);
+    const Real l_y = dataFile ("mesh/lengthMeshy "  , 2.);
+    const Real l_z = dataFile ("mesh/lengthMeshz "  , 2.);
 
-    const Real t_x =dataFile("mesh/startx "  , 2.);
-    const Real t_y =dataFile("mesh/starty "  , 2.);
-    const Real t_z =dataFile("mesh/startz "  , 2.);
+    const Real t_x = dataFile ("mesh/startx "  , 2.);
+    const Real t_y = dataFile ("mesh/starty "  , 2.);
+    const Real t_z = dataFile ("mesh/startz "  , 2.);
 
 
 
     boost::shared_ptr< mesh_Type > fullMeshPtr (new mesh_Type ( Comm ) );
 
     regularMesh3D ( *fullMeshPtr, 1, Nelementsx, Nelementsy, Nelementsz, false,
-                l_x ,   l_y,   l_z,
-                t_x ,   t_y,      t_z  );
+                    l_x ,   l_y,   l_z,
+                    t_x ,   t_y,      t_z  );
 
     // ==============================================================
     // Read from Mesh ( conforming with LifeV marker , see testsuite/mesh )
     // =============================================================
     // Load the mesh
- /*
-    MeshData dataMesh;
-    dataMesh.setup (dataFile, "mesh");
-    boost::shared_ptr < mesh_Type > fullMeshPtr (new mesh_Type);
-    readMesh (*fullMeshPtr, dataMesh);
- */
+    /*
+       MeshData dataMesh;
+       dataMesh.setup (dataFile, "mesh");
+       boost::shared_ptr < mesh_Type > fullMeshPtr (new mesh_Type);
+       readMesh (*fullMeshPtr, dataMesh);
+    */
 
 
     boost::shared_ptr< mesh_Type > meshPtr;
@@ -690,23 +690,23 @@ int main ( int argc, char** argv )
     }
 
 
-  std::string  uOrder=dataFile("fespace/order "  ,"P1");
+    std::string  uOrder = dataFile ("fespace/order "  , "P1");
 
-   #ifdef scalarFE
-   boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 1, Comm) );
+#ifdef scalarFE
+    boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 1, Comm) );
 
     boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 1 > > ETuFESpace
-  ( new ETFESpace< mesh_Type, MapEpetra, 3, 1 > (meshPtr, &(uFESpace->refFE()), Comm) );
-   #endif
-   #ifdef VECTORIALFE
-   boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 3, Comm) );
+    ( new ETFESpace< mesh_Type, MapEpetra, 3, 1 > (meshPtr, & (uFESpace->refFE() ), Comm) );
+#endif
+#ifdef VECTORIALFE
+    boost::shared_ptr<FESpace< mesh_Type, MapEpetra > > uFESpace ( new FESpace< mesh_Type, MapEpetra > (meshPtr, uOrder, 3, Comm) );
 
-  boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 3 > > ETuFESpace
+    boost::shared_ptr<ETFESpace< mesh_Type, MapEpetra, 3, 3 > > ETuFESpace
     ( new ETFESpace< mesh_Type, MapEpetra, 3, 3 > (meshPtr,
-      & (uFESpace->refFE()), Comm) );
-   #endif
+                                                   & (uFESpace->refFE() ), Comm) );
+#endif
 
-if (verbose)
+    if (verbose)
     {
         std::cout << " done ! " << std::endl;
     }
@@ -797,179 +797,179 @@ if (verbose)
         // integration must be added to the SystemMatrix.
         // ---------------------------------------------------------------
 
-    #ifdef scalarFE
+#ifdef scalarFE
 
-integrate (  elements (ETuFESpace->mesh() ),
+        integrate (  elements (ETuFESpace->mesh() ),
                      quadRuleTetra4pt,
                      ETuFESpace,
                      ETuFESpace,
-    eval( scalardiffusionFct, X) * dot ( grad (phi_j) , grad (phi_i) )
-    - eval( scalarReactionFct, X) *   phi_j * phi_i
+                     eval ( scalardiffusionFct, X) * dot ( grad (phi_j) , grad (phi_i) )
+                     - eval ( scalarReactionFct, X) *   phi_j * phi_i
 
                   )
                 >> *SystemMatrix;
 
-// - \int _\GammaN \grad u cdot n =- \int_GammaN gN v + \int_\GammaN  alpha u cdot v
+        // - \int _\GammaN \grad u cdot n =- \int_GammaN gN v + \int_\GammaN  alpha u cdot v
 
-// Assembly of LHS of Robin Boundary Condition
+        // Assembly of LHS of Robin Boundary Condition
 
-integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
+        integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
                      myBDQR,
                      ETuFESpace,
                      ETuFESpace,
-            value ( alpha ) * phi_j * phi_i
-
- )
-                >> *SystemMatrix;
-
-
-
-
-    #endif
-
-    #ifdef VECTORIALFE
-integrate (  elements (ETuFESpace->mesh() ),
-                     quadRuleTetra4pt,
-                     ETuFESpace,
-                     ETuFESpace,
-          dot( eval(MatrixdiffusionFct, X)* grad (phi_j) , grad (phi_i) )
-          -    eval( scalarReactionFct, X) * dot(   phi_j , phi_i)
-
+                     value ( alpha ) * phi_j * phi_i
 
                   )
                 >> *SystemMatrix;
 
 
 
-integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
+
+#endif
+
+#ifdef VECTORIALFE
+        integrate (  elements (ETuFESpace->mesh() ),
+                     quadRuleTetra4pt,
+                     ETuFESpace,
+                     ETuFESpace,
+                     dot ( eval (MatrixdiffusionFct, X) * grad (phi_j) , grad (phi_i) )
+                     -    eval ( scalarReactionFct, X) * dot (   phi_j , phi_i)
+
+
+                  )
+                >> *SystemMatrix;
+
+
+
+        integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
                      myBDQR,
                      ETuFESpace,
                      ETuFESpace,
-            value ( alpha )* dot( phi_j , phi_i)
+                     value ( alpha ) * dot ( phi_j , phi_i)
 
- )
+                  )
                 >> *SystemMatrix;
 
 #endif
-   }
+    }
 
     if (verbose)
     {
         std::cout << " Assembling the rhs ... " << std::flush;
     }
-   boost::shared_ptr<rhsScalarFunctor> scalarFctRhs ( new rhsScalarFunctor );
-   boost::shared_ptr<Neumann1ScalarFunctor> scalarFctN1 ( new Neumann1ScalarFunctor );
-   boost::shared_ptr<Neumann2ScalarFunctor> scalarFctN2 ( new Neumann2ScalarFunctor );
+    boost::shared_ptr<rhsScalarFunctor> scalarFctRhs ( new rhsScalarFunctor );
+    boost::shared_ptr<Neumann1ScalarFunctor> scalarFctN1 ( new Neumann1ScalarFunctor );
+    boost::shared_ptr<Neumann2ScalarFunctor> scalarFctN2 ( new Neumann2ScalarFunctor );
 
-   boost::shared_ptr<robinFunctor> scalarFctR ( new robinFunctor );
-
-
-     boost::shared_ptr<rhsVectorialFunctor> VectorialFctRhs ( new rhsVectorialFunctor );
-
-   boost::shared_ptr<Neumann1VectorialFunctor> VectorialFctN1 ( new Neumann1VectorialFunctor );
-   boost::shared_ptr<Neumann2VectorialFunctor> VectorialFctN2 ( new Neumann2VectorialFunctor );
-
-   boost::shared_ptr<robinVectFunctor> VectorialFctR ( new robinVectFunctor );
+    boost::shared_ptr<robinFunctor> scalarFctR ( new robinFunctor );
 
 
-   vector_Type uRhs ( ETuFESpace->map() , Repeated );
+    boost::shared_ptr<rhsVectorialFunctor> VectorialFctRhs ( new rhsVectorialFunctor );
+
+    boost::shared_ptr<Neumann1VectorialFunctor> VectorialFctN1 ( new Neumann1VectorialFunctor );
+    boost::shared_ptr<Neumann2VectorialFunctor> VectorialFctN2 ( new Neumann2VectorialFunctor );
+
+    boost::shared_ptr<robinVectFunctor> VectorialFctR ( new robinVectFunctor );
+
+
+    vector_Type uRhs ( ETuFESpace->map() , Repeated );
     uRhs *= 0.0;
 
     {
         using namespace ExpressionAssembly;
-    #ifdef scalarFE
-        integrate ( elements (ETuFESpace->mesh()), // Mesh
+#ifdef scalarFE
+        integrate ( elements (ETuFESpace->mesh() ), // Mesh
 
 
-                   uFESpace->qr(), // QR
+                    uFESpace->qr(), // QR
 
                     ETuFESpace,
 
-                     eval ( scalarFctRhs, X ) * phi_i
+                    eval ( scalarFctRhs, X ) * phi_i
 
                   )
-                  >> uRhs;
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::TOPWALL), // Mesh
+                >> uRhs;
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::TOPWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( scalarFctN1 , X ) * phi_i
+                    eval ( scalarFctN1 , X ) * phi_i
 
                   )
-                  >>uRhs;
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::FRONTWALL), // Mesh
+                >> uRhs;
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::FRONTWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( scalarFctN2 , X ) * phi_i
+                    eval ( scalarFctN2 , X ) * phi_i
 
                   )
-                  >>uRhs;
+                >> uRhs;
 
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::BOTTOMWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     eval ( scalarFctR , X ) * phi_i
+                    eval ( scalarFctR , X ) * phi_i
 
                   )
-                  >>uRhs;
+                >> uRhs;
 
-    #endif
-    #ifdef VECTORIALFE
+#endif
+#ifdef VECTORIALFE
         integrate ( elements (ETuFESpace->mesh() ), // Mesh
 
                     uFESpace->qr(), // QR
 
                     ETuFESpace,
 
-                   dot(  eval ( VectorialFctRhs, X ) , phi_i)
+                    dot (  eval ( VectorialFctRhs, X ) , phi_i)
 
                   )
                 >> uRhs;
 
-        integrate ( boundary (ETuFESpace->mesh(),BCFlags::TOPWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::TOPWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     dot(  eval ( VectorialFctN1 , X ) , phi_i)
+                    dot (  eval ( VectorialFctN1 , X ) , phi_i)
 
                   )
-                  >>uRhs;
+                >> uRhs;
 
-     integrate ( boundary (ETuFESpace->mesh(),BCFlags::FRONTWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::FRONTWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     dot(  eval ( VectorialFctN2 , X ) , phi_i)
+                    dot (  eval ( VectorialFctN2 , X ) , phi_i)
 
                   )
-                  >>uRhs;
+                >> uRhs;
 
-     integrate ( boundary (ETuFESpace->mesh(),BCFlags::BOTTOMWALL), // Mesh
+        integrate ( boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL), // Mesh
 
                     myBDQR, // QR
 
                     ETuFESpace,
 
-                     dot(  eval ( VectorialFctR , X ) , phi_i)
+                    dot (  eval ( VectorialFctR , X ) , phi_i)
 
                   )
-                  >>uRhs;
+                >> uRhs;
 
 
-  #endif
-   }
+#endif
+    }
 
 
 
@@ -1001,27 +1001,27 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
         std::cout << " Applying Dirichlet boundary conditions ... " << std::flush;
     }
 
-   BCHandler bcHandler;
+    BCHandler bcHandler;
 
     BCFunctionBase dirichletBCFct ( dirichlet );
 
-//======================================================
-// Essential BC are identified by  coordinates x; y; z
-//=====================================================
+    //======================================================
+    // Essential BC are identified by  coordinates x; y; z
+    //=====================================================
 
-   #ifdef scalarFE
+#ifdef scalarFE
 
     bcHandler.addBC ("Left", BCFlags::LEFTWALL, Essential, Full, dirichletBCFct, 1);
     bcHandler.addBC ("Right", BCFlags::RIGHTWALL, Essential, Full , dirichletBCFct, 1);
     bcHandler.addBC ("Back", BCFlags::BACKWALL, Essential, Full, dirichletBCFct, 1);
 
-    #endif
+#endif
 
-    #ifdef VECTORIALFE
+#ifdef VECTORIALFE
     bcHandler.addBC ("Left", BCFlags::LEFTWALL, Essential, Full , dirichletBCFct, 3);
     bcHandler.addBC ("Right", BCFlags::RIGHTWALL, Essential, Full , dirichletBCFct, 3);
     bcHandler.addBC ("Back", BCFlags::BACKWALL, Essential, Full , dirichletBCFct, 3);
-    #endif
+#endif
 
     bcHandler.bcUpdate ( *meshPtr, uFESpace->feBd(), uFESpace->dof() );
     bcManage (*SystemMatrix, *uRhsUnique,
@@ -1034,7 +1034,7 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     vectorPtr_Type uSolution ( new vector_Type ( ETuFESpace->map() , Unique) );
 
 
-   if ( verbose )
+    if ( verbose )
     {
         std::cout << "Setting up LinearSolver ... " << std::flush;
     }
@@ -1046,10 +1046,10 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     precPtr.reset ( precRawPtr );
 
     Teuchos::RCP< Teuchos::ParameterList > solverList = Teuchos::rcp ( new Teuchos::ParameterList );
-    const std::string solverParam=dataFile("solver/listName", "SolverParamList.xml");
+    const std::string solverParam = dataFile ("solver/listName", "SolverParamList.xml");
 
 
-   solverList = Teuchos::getParametersFromXmlFile (solverParam );
+    solverList = Teuchos::getParametersFromXmlFile (solverParam );
 
     LinearSolver linearSolver;
     linearSolver.setCommunicator ( Comm );
@@ -1060,7 +1060,7 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
         std::cout << "done" << std::endl;
     }
 
-   if ( verbose )
+    if ( verbose )
     {
         std::cout << " Solving the system " << std::endl;
     }
@@ -1097,20 +1097,20 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
         std::cout << "done" << std::endl;
     }
 
-// Assign to uExporter the Solution
+    // Assign to uExporter the Solution
 
     *uExported = *uSolution;
 
     exporter.postProcess ( 1.0 );
 
 
-// Close Exporter
+    // Close Exporter
     exporter.closeFile();
 
 
-   bool success ( true );
+    bool success ( true );
 
-   if (!success)
+    if (!success)
     {
         if (verbose)
         {

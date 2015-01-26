@@ -644,7 +644,7 @@ main ( int argc, char** argv )
 
             if (verbose)
             {
-                std::cout << "Solving the system... " << std::endl;
+                std::cout << "solving the system... " << std::endl;
             }
             *solution *= 0;
 

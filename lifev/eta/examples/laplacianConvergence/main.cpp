@@ -497,7 +497,7 @@ int main ( int argc, char** argv )
 
         std::cout << " H1 error norm " <<  sqrt ( errorH1Squared ) << std::endl;
 
-   }
+    }
 
     exporter.closeFile();
 
@@ -506,7 +506,7 @@ int main ( int argc, char** argv )
 
     if ( (  abs ( sqrt (errorL2Squared) - 0.0768093 ) < tolerance )
             && (  abs ( sqrt (errorH1Squared) - 1.75986  ) < tolerance )
-      )
+       )
     {
         success = true ;
     }

@@ -763,9 +763,10 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     vectorPtr_Type uSolution ( new vector_Type ( ETuFESpace->map() , Unique) );
 
 
+
    if ( verbose )
     {
-        std::cout << "Setting up LinearSolver (Belos)... " << std::flush;
+        std::cout << "Setting up LinearSolver ... " << std::flush;
     }
 
     prec_Type* precRawPtr;
@@ -774,19 +775,23 @@ integrate (  boundary (ETuFESpace->mesh(), BCFlags::BOTTOMWALL ),
     precRawPtr->setDataFromGetPot ( dataFile, "prec" );
     precPtr.reset ( precRawPtr );
 
-    Teuchos::RCP< Teuchos::ParameterList > belosList = Teuchos::rcp ( new Teuchos::ParameterList );
-    belosList = Teuchos::getParametersFromXmlFile ( "SolverParamList3.xml" );
+    Teuchos::RCP< Teuchos::ParameterList > solverList = Teuchos::rcp ( new Teuchos::ParameterList );
+    const std::string solverParam=dataFile("solver/listName", "SolverParamListBelos.xml");
+
+
+   solverList = Teuchos::getParametersFromXmlFile (solverParam );
 
     LinearSolver linearSolver;
     linearSolver.setCommunicator ( Comm );
-    linearSolver.setParameters ( *belosList );
+    linearSolver.setParameters ( *solverList );
     linearSolver.setPreconditioner ( precPtr );
     if ( verbose )
     {
         std::cout << "done" << std::endl;
     }
 
-   if ( verbose )
+
+  if ( verbose )
     {
         std::cout << " Solving the system " << std::endl;
     }

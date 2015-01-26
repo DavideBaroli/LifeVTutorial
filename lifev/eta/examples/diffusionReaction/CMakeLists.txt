@@ -25,12 +25,12 @@ TRIBITS_COPY_FILES_TO_BINARY_DIR(dataETA_DiffusionReaction
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-TRIBITS_COPY_FILES_TO_BINARY_DIR(SolverParamList_xml_DiffusionReaction
-  SOURCE_FILES SolverParamList.xml
+TRIBITS_COPY_FILES_TO_BINARY_DIR(SolverParamListAztecOO_xml_DiffusionReaction
+  SOURCE_FILES SolverParamListAztecOO.xml
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
 )
 TRIBITS_COPY_FILES_TO_BINARY_DIR(SolverParamListBelos_xml_DiffusionReaction
-  SOURCE_FILES SolverParamList3.xml
+  SOURCE_FILES SolverParamListBelos.xml
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
